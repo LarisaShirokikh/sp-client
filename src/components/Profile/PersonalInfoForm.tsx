@@ -1,22 +1,22 @@
 "use client";
 
 import { FC, useEffect, useState } from 'react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { 
+import { Input } from '@/components/UI/input';
+import { Button } from '@/components/UI/button';
+import { Textarea } from '@/components/UI/textarea';
+import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage
-} from '@/components/ui/form';
+} from '@/components/UI/form';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { Spinner } from '@/components/ui/spinner';
+import { Spinner } from '@/components/UI/spinner';
 import { VerificationStatus } from './VerificationStatus';
 import { UserData } from '@/app/interface/auth';
 import { useAuth } from '@/app/hooks/useAuth';
@@ -41,7 +41,7 @@ type FormValues = z.infer<typeof formSchema>;
 export const PersonalInfoForm: FC<PersonalInfoFormProps> = ({
   userData
 }) => {
-  const {  updateUserProfile } = useAuth();
+  const { updateUserProfile } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showVerifyEmail, setShowVerifyEmail] = useState<boolean>(!userData?.is_verified);
   const [showVerifyPhone, setShowVerifyPhone] = useState<boolean>(!!userData?.phone && !userData?.is_phone_verified);
@@ -60,13 +60,13 @@ export const PersonalInfoForm: FC<PersonalInfoFormProps> = ({
 
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
-    
+
     try {
-      
-    
-    // Отправляем данные
-    await updateUserProfile(data);
-      
+
+
+      // Отправляем данные
+      await updateUserProfile(data);
+
       // Show success message
       toast.success('Личная информация успешно обновлена');
     } catch (error) {
@@ -148,8 +148,8 @@ export const PersonalInfoForm: FC<PersonalInfoFormProps> = ({
                       <FormControl>
                         <Input {...field} type="email" className="rounded-r-none" />
                       </FormControl>
-                      <VerificationStatus 
-                        isVerified={userData?.is_verified} 
+                      <VerificationStatus
+                        isVerified={userData?.is_verified}
                         sendVerification={sendVerificationEmail}
                         label="Email"
                       />
@@ -172,8 +172,8 @@ export const PersonalInfoForm: FC<PersonalInfoFormProps> = ({
                         <Input {...field} type="tel" value={field.value || ''} className="rounded-r-none" />
                       </FormControl>
                       {field.value && (
-                        <VerificationStatus 
-                          isVerified={userData?.is_phone_verified} 
+                        <VerificationStatus
+                          isVerified={userData?.is_phone_verified}
                           sendVerification={sendVerificationSMS}
                           label="Телефон"
                         />
@@ -192,11 +192,11 @@ export const PersonalInfoForm: FC<PersonalInfoFormProps> = ({
                 <FormItem className="sm:col-span-6">
                   <FormLabel>О себе</FormLabel>
                   <FormControl>
-                    <Textarea 
-                      {...field} 
-                      value={field.value || ''} 
-                      rows={4} 
-                      placeholder="Расскажите немного о себе..." 
+                    <Textarea
+                      {...field}
+                      value={field.value || ''}
+                      rows={4}
+                      placeholder="Расскажите немного о себе..."
                     />
                   </FormControl>
                   <p className="text-sm text-gray-500 mt-1">

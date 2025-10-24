@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { PlusCircle } from 'lucide-react';
 import useAuth from '@/app/hooks/useAuth';
-import Modal from '@/components/ui/modal'; // Adjust the import path as needed
+import Modal from '@/components/UI/modal'; // Adjust the import path as needed
 import { LoginModal } from '@/components/Auth/LoginModal'; // Adjust the import path as needed
 
 const ForumHeader = () => {
@@ -42,18 +42,18 @@ const ForumHeader = () => {
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Форум сообщества</h1>
         <p className="text-gray-600">Обсуждайте интересующие вас темы и делитесь опытом</p>
       </div>
-      
-      <button 
+
+      <button
         onClick={handleCreateTopic}
         className="mt-4 md:mt-0 inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
       >
         <PlusCircle size={18} className="mr-2" />
         Создать тему
       </button>
-      
+
       {/* First modal - Authentication Required */}
-      <Modal 
-        isOpen={showAuthModal} 
+      <Modal
+        isOpen={showAuthModal}
         onClose={closeAuthModal}
         title="Требуется авторизация"
         maxWidth="md"
@@ -63,7 +63,7 @@ const ForumHeader = () => {
             Для создания новой темы необходимо войти в систему или зарегистрироваться.
           </p>
           <div className="flex space-x-3">
-            <button 
+            <button
               onClick={handleLoginClick}
               className="flex-1 px-4 py-2 bg-purple-600 text-white text-center rounded-lg hover:bg-purple-700 transition-colors"
             >
@@ -75,7 +75,7 @@ const ForumHeader = () => {
             >
               Регистрация
             </Link> */}
-            <button 
+            <button
               onClick={closeAuthModal}
               className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
             >
@@ -84,10 +84,10 @@ const ForumHeader = () => {
           </div>
         </div>
       </Modal>
-      
+
       {/* Second modal - Login/Registration Form */}
-      <LoginModal 
-        isOpen={showLoginModal} 
+      <LoginModal
+        isOpen={showLoginModal}
         onClose={closeLoginModal}
       />
     </div>

@@ -3,15 +3,13 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
-import { AdminHeader } from '@/components/Admin/AdminHeader';
-import { AdminNav } from '@/components/Admin/AdminNav';
 import ProtectedRoute from '@/components/Common/ProtectedRoute';
 import { useAdminPermissions } from '@/app/hooks/useAdminPermissions';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/UI/tabs';
+import { Button } from '@/components/UI/button';
+import { Textarea } from '@/components/UI/textarea';
 import { Label } from '@radix-ui/react-label';
-import { Input } from '@/components/ui/input';
+import { Input } from '@/components/UI/input';
 import {
     Card,
     CardContent,
@@ -19,7 +17,7 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
+} from "@/components/UI/card";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -29,60 +27,16 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { API_CONFIG } from '@/lib/apiConfig';
+} from "@/components/UI/alert-dialog";
+import { GroupBuy, Product, ProductFormData } from '@/app/interface/product';
+import { GroupBuyService } from '@/services/groupBuyService';
 
 
-// Типы данных
-interface GroupBuy {
-    id: number;
-    title: string;
-    description: string;
-    category: string;
-    supplier: string;
-    min_order_amount: number;
-    end_date: string;
-    fee_percent: number;
-    allow_partial_purchase: boolean;
-    is_visible: boolean;
-    status: string;
-    organizer_id: number;
-    created_at: string;
-    updated_at: string;
-    total_participants: number;
-    total_amount: number;
-    products_count: number;
-}
-
-interface Product {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    image_url: string | null;
-    vendor: string | null;
-    vendor_code: string | null;
-    available: boolean;
-    group_buy_id: number;
-    created_at: string;
-    updated_at: string;
-    quantity_ordered: number;
-}
-
-interface ProductFormData {
-    name: string;
-    description: string;
-    price: number;
-    image_url: string | null;
-    vendor: string | null;
-    vendor_code: string | null;
-    available: boolean;
-}
 
 export default function GroupBuyDetailPage() {
     const router = useRouter();
     const params = useParams();
-    const groupBuyId = params.id;
+    const groupBuyId = params.id as string;
     const permissions = useAdminPermissions();
 
     // Состояния
@@ -117,16 +71,7 @@ export default function GroupBuyDetailPage() {
             setError(null);
 
             try {
-                const response = await fetch(`${API_CONFIG.BASE_URL}/group_buy/${groupBuyId}`, {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-
-                if (!response.ok) {
-                    throw new Error('Не удалось загрузить данные о закупке');
-                }
-
-                const data = await response.json();
+                const data = await GroupBuyService.getGroupBuyDetails(groupBuyId);
                 setGroupBuy(data);
 
                 // Загрузка продуктов
@@ -147,16 +92,7 @@ export default function GroupBuyDetailPage() {
     // Загрузка продуктов
     const fetchProducts = async () => {
         try {
-            const response = await fetch(`${API_CONFIG.BASE_URL}/group_buy/${groupBuyId}/products`, {
-                method: 'GET',
-                credentials: 'include',
-            });
-
-            if (!response.ok) {
-                throw new Error('Не удалось загрузить список товаров');
-            }
-
-            const data = await response.json();
+            const data = await GroupBuyService.getProducts(groupBuyId);
             setProducts(data);
         } catch (err: any) {
             console.error('Ошибка при загрузке товаров:', err);
@@ -171,21 +107,7 @@ export default function GroupBuyDetailPage() {
         setSuccess(null);
 
         try {
-            const response = await fetch(`${API_CONFIG.BASE_URL}/group_buy/${groupBuyId}`, {
-                method: 'PUT',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(updatedData),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.detail || 'Ошибка при обновлении закупки');
-            }
-
-            const data = await response.json();
+            const data = await GroupBuyService.updateGroupBuy(groupBuyId, updatedData);
             setGroupBuy(data);
             setSuccess('Закупка успешно обновлена');
 
@@ -208,39 +130,31 @@ export default function GroupBuyDetailPage() {
         setError(null);
         setSuccess(null);
 
-        const isEditing = !!editingProduct;
-        const url = isEditing
-            ? `${API_CONFIG.BASE_URL}/group_buy/${groupBuyId}/products/${editingProduct.id}`
-            : `${API_CONFIG.BASE_URL}/group_buy/${groupBuyId}/products`;
-
-        const method = isEditing ? 'PUT' : 'POST';
-
         try {
-            const response = await fetch(url, {
-                method,
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(productFormData),
-            });
+            if (editingProduct) {
+                // Обновление существующего товара
+                await GroupBuyService.updateProduct(
+                    groupBuyId,
+                    editingProduct.id.toString(),
+                    productFormData
+                );
+            } else {
+                // Создание нового товара
+                await GroupBuyService.createProduct(groupBuyId, productFormData);
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.detail || `Ошибка при ${isEditing ? 'обновлении' : 'добавлении'} товара`);
+                // Обновляем счетчик продуктов в закупке для нового товара
+                if (groupBuy) {
+                    setGroupBuy({
+                        ...groupBuy,
+                        products_count: (groupBuy.products_count || 0) + 1
+                    });
+                }
             }
 
             await fetchProducts();
 
             // Обновляем счетчик продуктов в закупке, если это новый товар
-            if (!isEditing && groupBuy) {
-                setGroupBuy({
-                    ...groupBuy,
-                    products_count: (groupBuy.products_count || 0) + 1
-                });
-            }
-
-            setSuccess(`Товар успешно ${isEditing ? 'обновлён' : 'добавлен'}`);
+            setSuccess(`Товар успешно ${editingProduct ? 'обновлён' : 'добавлен'}`);
 
             // Сброс формы и состояний
             resetProductForm();
@@ -250,8 +164,8 @@ export default function GroupBuyDetailPage() {
                 setSuccess(null);
             }, 3000);
         } catch (err: any) {
-            console.error(`Ошибка при ${isEditing ? 'обновлении' : 'добавлении'} товара:`, err);
-            setError(err.message || `Произошла ошибка при ${isEditing ? 'обновлении' : 'добавлении'} товара`);
+            console.error(`Ошибка при ${editingProduct ? 'обновлении' : 'добавлении'} товара:`, err);
+            setError(err.message || `Произошла ошибка при ${editingProduct ? 'обновлении' : 'добавлении'} товара`);
         } finally {
             setLoading(false);
         }
@@ -264,14 +178,7 @@ export default function GroupBuyDetailPage() {
         setSuccess(null);
 
         try {
-            const response = await fetch(`${API_CONFIG.BASE_URL}/group_buy/${groupBuyId}/products/${productId}`, {
-                method: 'DELETE',
-                credentials: 'include',
-            });
-
-            if (!response.ok) {
-                throw new Error('Ошибка при удалении товара');
-            }
+            await GroupBuyService.deleteProduct(groupBuyId, productId.toString());
 
             // Обновление списка товаров
             setProducts(products.filter(product => product.id !== productId));
@@ -360,9 +267,7 @@ export default function GroupBuyDetailPage() {
         return (
             <ProtectedRoute>
                 <div className="min-h-screen bg-gray-100">
-                    <AdminHeader />
                     <div className="flex">
-                        <AdminNav />
                         <main className="flex-1 p-6">
                             <div className="flex justify-center items-center h-full">
                                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
@@ -378,15 +283,13 @@ export default function GroupBuyDetailPage() {
         return (
             <ProtectedRoute>
                 <div className="min-h-screen bg-gray-100">
-                    <AdminHeader />
                     <div className="flex">
-                        <AdminNav />
                         <main className="flex-1 p-6">
                             <div className="max-w-4xl mx-auto">
                                 <div className="bg-red-50 border border-red-200 text-red-800 rounded-md p-4 mb-6">
                                     {error}
                                 </div>
-                                <Button onClick={() => router.push('/admin/organizer')}>
+                                <Button onClick={() => router.push('/organizer')}>
                                     Вернуться к списку закупок
                                 </Button>
                             </div>
@@ -439,10 +342,10 @@ export default function GroupBuyDetailPage() {
 
     return (
         <ProtectedRoute>
-            <div className="min-h-screen bg-gray-100">
-                <AdminHeader />
+            <div className="min-h-screen">
+
                 <div className="flex">
-                    <AdminNav />
+
                     <main className="flex-1 p-6">
                         <div className="max-w-6xl mx-auto">
                             {/* Заголовок и кнопки */}
@@ -452,7 +355,7 @@ export default function GroupBuyDetailPage() {
                                 </h1>
                                 <div className="flex gap-2">
                                     <Link
-                                        href="/admin/organizer"
+                                        href="/organizer"
                                         className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
                                     >
                                         К списку закупок

@@ -1,7 +1,7 @@
 // components/Topic/ReplyForm.tsx
 import { useState, useRef } from 'react';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/UI/button';
+import { Textarea } from '@/components/UI/textarea';
 import Image from 'next/image';
 import { toast } from 'sonner';
 

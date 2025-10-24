@@ -1,9 +1,9 @@
 "use client";
 
 import { FC, useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/UI/button';
 import { CheckCircle, AlertCircle } from 'lucide-react';
-import { Spinner } from '@/components/ui/spinner';
+import { Spinner } from '@/components/UI/spinner';
 
 interface VerificationStatusProps {
   isVerified?: boolean;

@@ -1,5 +1,3 @@
-
-
 // @/types/auth.ts
 export enum UserRole {
   USER = "user",
@@ -57,36 +55,46 @@ export interface FormErrors {
   form?: string;
 }
 
-export interface ApiResponse {
+export interface ApiResponse<T = any> {
   success: boolean;
   message?: string;
-  user?: {
-    id: number;
-    name: string;
-    email: string;
+  data?: T;
+  error?: string;
+  meta?: {
+    page?: number;
+    limit?: number;
+    total?: number;
+    totalPages?: number;
   };
-  access_token?: string;
-  token_type?: string;
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface RegisterData extends UserDataReg {
+  full_name?: string;
+}
+
+export interface AuthResponse {
+  user: UserData;
+  access_token: string;
+  token_type: string;
 }
 
 export interface AuthContextType {
   isLoggedIn: boolean;
   userData: UserData | null;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<any>;
   register: (name: string, email: string, phone: string, password: string) => Promise<any>;
-  logout: () => void | Promise<void>; // Обновлено, чтобы принять async logout
+  logout: () => void | Promise<void>;
   updateUserProfile: (data: Record<string, any> | FormData) => Promise<any>;
   isLoading: boolean;
   error: string | null;
   token: string | null;
-  fetchUserData?: (token: string) => Promise<UserData>;
+  fetchUserData?: () => Promise<UserData | undefined>;
   fetchUsersByIds: (userIds: number[]) => Promise<void>;
   getUserById: (userId: number | null) => UserData | null;
   usersCache: { [key: number]: UserData };
 }
-
-
-
-
-
-

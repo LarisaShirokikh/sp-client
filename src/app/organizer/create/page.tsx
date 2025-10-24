@@ -2,8 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { AdminHeader } from '@/components/Admin/AdminHeader';
-import { AdminNav } from '@/components/Admin/AdminNav';
 import ProtectedRoute from '@/components/Common/ProtectedRoute';
 import { useAdminPermissions } from '@/app/hooks/useAdminPermissions';
 import { FormProvider } from '@/app/providers/FormProvider';
@@ -16,16 +14,16 @@ export default function CreateGroupBuyPage() {
 
     return (
         <ProtectedRoute>
-            <div className="min-h-screen bg-gray-100">
-                <AdminHeader />
+            <div className="min-h-screen">
+
                 <div className="flex">
-                    <AdminNav />
+
                     <main className="flex-1 p-6">
                         <div className="max-w-4xl mx-auto">
                             <div className="flex items-center justify-between mb-6">
                                 <h1 className="text-2xl font-bold text-gray-900">Создание новой закупки</h1>
                                 <Link
-                                    href="/admin/organizer"
+                                    href="/organizer"
                                     className="text-gray-600 hover:text-gray-900"
                                 >
                                     Вернуться к списку закупок

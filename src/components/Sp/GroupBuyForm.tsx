@@ -3,15 +3,15 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/UI/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/UI/tabs';
 
 import { MainInfoTab } from './MainInfoTab';
 import { DeliveryTab } from './DeliveryTab';
 import { TermsTab } from './TermsTab';
 import { PreviewTab } from './PreviewTab';
-import { API_CONFIG } from '@/lib/apiConfig';
 import { useFormContext } from '@/app/providers/FormProvider';
+import { GroupBuyService } from '@/services/groupBuyService';
 
 // Определяем типы категорий
 const categories = [
@@ -74,28 +74,12 @@ export const GroupBuyForm: React.FC = () => {
             };
 
             // Отправка данных на бэкенд
-            const response = await fetch(`${API_CONFIG.BASE_URL}/group_buy/`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(transformedData),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(
-                    errorData.detail?.[0]?.msg || `Ошибка: ${response.statusText}`
-                );
-            }
-
-            const data = await response.json();
+            const groupBuy = await GroupBuyService.createGroupBuy(transformedData);
             setSuccess(true);
 
             // Перенаправление на страницу созданной закупки
             setTimeout(() => {
-                router.push(`/admin/organizer/create/${data.id}`);
+                router.push(`/organizer/create/${groupBuy.id}`);
             }, 1500);
 
         } catch (err: any) {
@@ -138,7 +122,7 @@ export const GroupBuyForm: React.FC = () => {
 
             <div className="bg-white rounded-lg shadow px-6 py-4 flex justify-end">
                 <Link
-                    href="/admin/organizer"
+                    href="/organizer"
                     className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 mr-3"
                 >
                     Отмена

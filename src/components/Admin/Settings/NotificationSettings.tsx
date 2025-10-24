@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Button } from '@/components/UI/button';
+import { Input } from '@/components/UI/input';
+import { Label } from '@/components/UI/label';
 import React, { useState } from 'react';
 
 export const NotificationSettings: React.FC = () => {
@@ -12,7 +12,7 @@ export const NotificationSettings: React.FC = () => {
     newsletterSubscription: false,
     systemUpdates: true
   });
-  
+
   const [pushNotifications, setPushNotifications] = useState({
     newOrder: true,
     orderStatusChange: false,
@@ -54,7 +54,7 @@ export const NotificationSettings: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
       // Здесь будет запрос к API для сохранения настроек уведомлений
       await new Promise(resolve => setTimeout(resolve, 1000)); // Имитация запроса
@@ -70,7 +70,7 @@ export const NotificationSettings: React.FC = () => {
   return (
     <div className="space-y-8">
       <h2 className="text-xl font-medium text-gray-800">Настройки уведомлений</h2>
-      
+
       <form onSubmit={handleSubmit} className="space-y-8">
         <div>
           <h3 className="text-lg font-medium text-gray-700 mb-4">Email-уведомления</h3>
@@ -96,7 +96,7 @@ export const NotificationSettings: React.FC = () => {
             ))}
           </div>
         </div>
-        
+
         <div>
           <h3 className="text-lg font-medium text-gray-700 mb-4">Push-уведомления</h3>
           <div className="space-y-4">
@@ -139,7 +139,7 @@ export const NotificationSettings: React.FC = () => {
                 <option value="disabled">Отключен</option>
               </select>
             </div>
-            
+
             <div>
               <Label htmlFor="passwordReset" className="block text-sm font-medium text-gray-700">
                 Сброс пароля
@@ -155,7 +155,7 @@ export const NotificationSettings: React.FC = () => {
                 <option value="disabled">Отключен</option>
               </select>
             </div>
-            
+
             <div>
               <Label htmlFor="welcomeEmail" className="block text-sm font-medium text-gray-700">
                 Приветственное письмо
@@ -171,7 +171,7 @@ export const NotificationSettings: React.FC = () => {
                 <option value="disabled">Отключен</option>
               </select>
             </div>
-            
+
             <div>
               <Label htmlFor="abandonedCart" className="block text-sm font-medium text-gray-700">
                 Брошенная корзина
@@ -189,7 +189,7 @@ export const NotificationSettings: React.FC = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="pt-4 flex justify-end">
           <Button
             type="submit"

@@ -45,8 +45,8 @@ export function AdminNav(): JSX.Element {
           {permissions.isGroupBuyOrganizer && (
             <li>
               <Link
-                href="/admin/organizer"
-                className={`block px-4 py-2 rounded-md ${isActive('/admin/organizer')}`}
+                href="/organizer"
+                className={`block px-4 py-2 rounded-md ${isActive('/organizer')}`}
               >
                 Организатор закупок
               </Link>

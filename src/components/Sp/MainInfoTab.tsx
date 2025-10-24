@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useRef } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/UI/card';
+import { Label } from '@/components/UI/label';
+import { Input } from '@/components/UI/input';
+import { Textarea } from '@/components/UI/textarea';
+import { Button } from '@/components/UI/button';
 import { Calendar, Percent, Upload } from 'lucide-react';
 import { useFormContext } from '@/app/providers/FormProvider';
 

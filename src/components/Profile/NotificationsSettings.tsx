@@ -2,9 +2,9 @@
 import { useState } from 'react';
 import { Bell } from 'lucide-react';
 import { UserData } from '@/app/interface/auth';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
+import { Label } from '../UI/label';
+import { Input } from '../UI/input';
+import { Button } from '../UI/button';
 
 interface NotificationSetting {
   id: string;
@@ -67,7 +67,7 @@ export const NotificationsSettings: React.FC<NotificationsSettingsProps> = ({ us
   const [successMessage, setSuccessMessage] = useState('');
 
   const handleToggle = (id: string) => {
-    setSettings(settings.map(setting => 
+    setSettings(settings.map(setting =>
       setting.id === id ? { ...setting, enabled: !setting.enabled } : setting
     ));
     setSuccessMessage('');

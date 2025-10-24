@@ -6,7 +6,7 @@ import { Category } from '@/app/interface/forum';
 import { AdminNav } from '@/components/Admin/AdminNav';
 import { AdminHeader } from '@/components/Admin/AdminHeader';
 import { ForumApiService } from '@/services/forumApiService';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/UI/button';
 import { CategoryModal } from '@/components/Admin/Category/CategoryModal';
 import { toast } from 'sonner';
 
@@ -16,7 +16,7 @@ export default function CategoriesManagementPage() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [showDeleteConfirmDialog, setShowDeleteConfirmDialog] = useState(false);
-const [deletingCategoryId, setDeletingCategoryId] = useState<number | null>(null);
+  const [deletingCategoryId, setDeletingCategoryId] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -49,7 +49,7 @@ const [deletingCategoryId, setDeletingCategoryId] = useState<number | null>(null
   };
 
   const handleUpdateCategory = async (formData: { name: string; description: string }) => {
-    if (!editingCategory?.id) return 
+    if (!editingCategory?.id) return
     try {
       const categoryId = editingCategory.id;
       console.log("🔧 updating category with id:", categoryId);
@@ -76,7 +76,7 @@ const [deletingCategoryId, setDeletingCategoryId] = useState<number | null>(null
 
   const confirmDeleteCategory = async () => {
     if (deletingCategoryId === null) return;
-    
+
     try {
       await ForumApiService.deleteCategory(deletingCategoryId);
       setCategories(categories.filter(cat => cat.id !== deletingCategoryId));
@@ -89,7 +89,7 @@ const [deletingCategoryId, setDeletingCategoryId] = useState<number | null>(null
       console.error('Error deleting category:', error);
     }
   };
-  
+
   // Handle cancel action
   const cancelDeleteCategory = () => {
     setShowDeleteConfirmDialog(false);

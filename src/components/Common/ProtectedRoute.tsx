@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/app/hooks/useAuth'; // Обновите путь к вашему хуку
 import { useLoginModal } from '@/app/providers/LoginModalProvider';
-import { Spinner } from '../ui/spinner';
+import { Spinner } from '../UI/spinner';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;

@@ -1,7 +1,7 @@
 // ProfileModals.tsx
 import { Dispatch, SetStateAction } from 'react';
 import { UserData } from '@/app/interface/auth';
-import Modal from '../ui/modal';
+import Modal from '../UI/modal';
 import { ProfileFormType } from '@/app/interface/profile';
 
 
@@ -73,7 +73,7 @@ export default function ProfileModals({
               className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
             />
           </div>
-          
+
           {avatarPreview ? (
             <div className="mb-4">
               <p className="text-sm font-medium text-gray-700 mb-2">Предпросмотр</p>
@@ -97,7 +97,7 @@ export default function ProfileModals({
               </div>
             </div>
           )}
-          
+
           <div className="flex justify-end space-x-3">
             <button
               type="button"
@@ -110,16 +110,15 @@ export default function ProfileModals({
               type="button"
               onClick={handleAvatarSubmit}
               disabled={!avatarFile}
-              className={`px-4 py-2 text-sm font-medium text-white rounded-md ${
-                avatarFile ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-400 cursor-not-allowed'
-              }`}
+              className={`px-4 py-2 text-sm font-medium text-white rounded-md ${avatarFile ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-400 cursor-not-allowed'
+                }`}
             >
               Сохранить
             </button>
           </div>
         </div>
       </Modal>
-      
+
       {/* Модальное окно для изменения обложки */}
       <Modal
         isOpen={isCoverModalOpen}
@@ -138,7 +137,7 @@ export default function ProfileModals({
               className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
             />
           </div>
-          
+
           {coverPreview && (
             <div className="mb-4">
               <p className="text-sm font-medium text-gray-700 mb-2">Предпросмотр</p>
@@ -151,7 +150,7 @@ export default function ProfileModals({
               </div>
             </div>
           )}
-          
+
           <div className="flex justify-end space-x-3">
             <button
               type="button"
@@ -164,16 +163,15 @@ export default function ProfileModals({
               type="button"
               onClick={handleCoverSubmit}
               disabled={!coverFile}
-              className={`px-4 py-2 text-sm font-medium text-white rounded-md ${
-                coverFile ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-400 cursor-not-allowed'
-              }`}
+              className={`px-4 py-2 text-sm font-medium text-white rounded-md ${coverFile ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-400 cursor-not-allowed'
+                }`}
             >
               Сохранить
             </button>
           </div>
         </div>
       </Modal>
-      
+
       {/* Модальное окно для редактирования профиля */}
       <Modal
         isOpen={isProfileModalOpen}
@@ -195,7 +193,7 @@ export default function ProfileModals({
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            
+
             <div>
               <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 mb-1">
                 Полное имя
@@ -209,7 +207,7 @@ export default function ProfileModals({
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            
+
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email
@@ -223,7 +221,7 @@ export default function ProfileModals({
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            
+
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
                 Телефон
@@ -237,7 +235,7 @@ export default function ProfileModals({
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            
+
             <div>
               <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
                 О себе
@@ -252,7 +250,7 @@ export default function ProfileModals({
               />
             </div>
           </div>
-          
+
           <div className="flex justify-end space-x-3 mt-6">
             <button
               type="button"

@@ -1,22 +1,22 @@
 // ProfileAvatar.tsx - Компонент для аватара пользователя
 import { ProfileAvatarProps } from '@/app/interface/profile';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback } from '@/components/UI/avatar';
+import { Button } from '@/components/UI/button';
 import { Camera, Edit } from 'lucide-react';
 
 
-export default function ProfileAvatar({ 
-  avatarUrl, 
-  userData, 
-  avatarError, 
-  setAvatarError, 
-  onChangeAvatar, 
-  onEditProfile 
+export default function ProfileAvatar({
+  avatarUrl,
+  userData,
+  avatarError,
+  setAvatarError,
+  onChangeAvatar,
+  onEditProfile
 }: ProfileAvatarProps) {
   // Функция для получения инициалов из имени
   const getInitials = (name?: string): string => {
     if (!name) return 'U';
-    
+
     return name
       .split(' ')
       .map(part => part.charAt(0))
@@ -30,7 +30,7 @@ export default function ProfileAvatar({
       <div className="relative group">
         <Avatar className="h-32 w-32 ring-4 ring-white shadow-md">
           {userData?.avatar_url && !avatarError ? (
-            <img 
+            <img
               src={avatarUrl}
               alt={userData?.name || 'User'}
               className="h-full w-full object-cover"
@@ -46,7 +46,7 @@ export default function ProfileAvatar({
             </AvatarFallback>
           )}
         </Avatar>
-        <button 
+        <button
           onClick={onChangeAvatar}
           className="absolute bottom-0 right-0 bg-white p-2 rounded-full shadow-md 
                      hover:bg-gray-100 transition duration-200"
@@ -56,9 +56,9 @@ export default function ProfileAvatar({
         </button>
       </div>
 
-      <Button 
+      <Button
         onClick={onEditProfile}
-        variant="outline" 
+        variant="outline"
         className="flex items-center gap-2"
       >
         <Edit className="h-4 w-4" />

@@ -4,10 +4,10 @@
 "use client";
 
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/UI/card';
+import { Label } from '@/components/UI/label';
+import { Input } from '@/components/UI/input';
+import { Textarea } from '@/components/UI/textarea';
 import { Clock } from 'lucide-react';
 import { useFormContext } from '@/app/providers/FormProvider';
 

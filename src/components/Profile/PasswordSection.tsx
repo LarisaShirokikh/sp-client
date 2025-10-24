@@ -1,23 +1,23 @@
 "use client";
 
 import { FC, useState } from 'react';
-import { 
+import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Spinner } from '@/components/ui/spinner';
+} from '@/components/UI/form';
+import { Input } from '@/components/UI/input';
+import { Button } from '@/components/UI/button';
+import { Spinner } from '@/components/UI/spinner';
 import { Lock, Eye, EyeOff, AlertTriangle, CheckCircle, Shield } from 'lucide-react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { Switch } from '@/components/ui/switch';
+import { Switch } from '@/components/UI/switch';
 
 const passwordFormSchema = z.object({
   currentPassword: z.string().min(1, 'Необходимо ввести текущий пароль'),
@@ -51,7 +51,7 @@ export const PasswordSection: FC = () => {
       confirmPassword: '',
     },
   });
-  
+
   const newPassword = form.watch('newPassword');
 
   const passwordStrength = {
@@ -80,16 +80,16 @@ export const PasswordSection: FC = () => {
 
   const onSubmit = async (data: PasswordFormValues) => {
     setIsSubmitting(true);
-    
+
     try {
       // Mock API call - replace with actual API call
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       console.log('Password data submitted:', data);
-      
+
       // Reset form
       form.reset();
-      
+
       // Show success message
       toast.success('Пароль успешно изменен');
     } catch (error) {
@@ -104,9 +104,9 @@ export const PasswordSection: FC = () => {
     try {
       // Mock API call
       await new Promise(resolve => setTimeout(resolve, 800));
-      
+
       setTwoFactorEnabled(!twoFactorEnabled);
-      
+
       if (!twoFactorEnabled) {
         toast.success('Двухфакторная аутентификация включена');
       } else {
@@ -136,10 +136,10 @@ export const PasswordSection: FC = () => {
                 <FormLabel>Текущий пароль</FormLabel>
                 <div className="relative">
                   <FormControl>
-                    <Input 
-                      {...field} 
-                      type={showCurrentPassword ? 'text' : 'password'} 
-                      placeholder="Введите ваш текущий пароль" 
+                    <Input
+                      {...field}
+                      type={showCurrentPassword ? 'text' : 'password'}
+                      placeholder="Введите ваш текущий пароль"
                     />
                   </FormControl>
                   <button
@@ -167,10 +167,10 @@ export const PasswordSection: FC = () => {
                 <FormLabel>Новый пароль</FormLabel>
                 <div className="relative">
                   <FormControl>
-                    <Input 
-                      {...field} 
-                      type={showNewPassword ? 'text' : 'password'} 
-                      placeholder="Введите новый пароль" 
+                    <Input
+                      {...field}
+                      type={showNewPassword ? 'text' : 'password'}
+                      placeholder="Введите новый пароль"
                     />
                   </FormControl>
                   <button
@@ -196,14 +196,13 @@ export const PasswordSection: FC = () => {
                       </span>
                     </div>
                     <div className="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
-                      <div 
-                        className={`h-1 rounded-full ${
-                          passwordStrengthScore < 3 
-                            ? 'bg-red-500' 
-                            : passwordStrengthScore < 5 
-                              ? 'bg-amber-500' 
+                      <div
+                        className={`h-1 rounded-full ${passwordStrengthScore < 3
+                            ? 'bg-red-500'
+                            : passwordStrengthScore < 5
+                              ? 'bg-amber-500'
                               : 'bg-green-500'
-                        }`} 
+                          }`}
                         style={{ width: `${(passwordStrengthScore / 5) * 100}%` }}
                       />
                     </div>
@@ -273,10 +272,10 @@ export const PasswordSection: FC = () => {
                 <FormLabel>Подтвердите пароль</FormLabel>
                 <div className="relative">
                   <FormControl>
-                    <Input 
-                      {...field} 
-                      type={showConfirmPassword ? 'text' : 'password'} 
-                      placeholder="Подтвердите новый пароль" 
+                    <Input
+                      {...field}
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      placeholder="Подтвердите новый пароль"
                     />
                   </FormControl>
                   <button
@@ -324,7 +323,7 @@ export const PasswordSection: FC = () => {
         <p className="mt-1 text-sm text-gray-500">
           Повысьте безопасность вашего аккаунта с помощью двухфакторной аутентификации
         </p>
-        
+
         <div className="mt-4 flex items-center justify-between">
           <div className="flex items-center">
             <Shield className="h-5 w-5 text-blue-500 mr-3" />
@@ -333,8 +332,8 @@ export const PasswordSection: FC = () => {
                 {twoFactorEnabled ? 'Двухфакторная аутентификация включена' : 'Двухфакторная аутентификация отключена'}
               </p>
               <p className="text-sm text-gray-500">
-                {twoFactorEnabled 
-                  ? 'Ваш аккаунт защищен дополнительным уровнем безопасности.' 
+                {twoFactorEnabled
+                  ? 'Ваш аккаунт защищен дополнительным уровнем безопасности.'
                   : 'Включите для дополнительной защиты при входе в аккаунт.'}
               </p>
             </div>
@@ -344,7 +343,7 @@ export const PasswordSection: FC = () => {
             onCheckedChange={handleToggleTwoFactor}
           />
         </div>
-        
+
         {twoFactorEnabled && (
           <div className="mt-4 p-4 bg-gray-50 rounded-md">
             <h5 className="text-sm font-medium text-gray-900">Резервные коды восстановления</h5>

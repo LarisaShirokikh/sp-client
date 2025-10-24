@@ -1,16 +1,16 @@
 "use client";
 
 import { FC, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { 
-  Card, 
-  CardContent, 
-  CardFooter, 
+import { Button } from '@/components/UI/button';
+import {
+  Card,
+  CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
   CardDescription
-} from '@/components/ui/card';
-import { 
+} from '@/components/UI/card';
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -18,10 +18,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from '@/components/UI/dialog';
 import { Plus, Pencil, Trash2, MapPin, Home, Briefcase } from 'lucide-react';
 import { AddressForm } from './AddressForm';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/components/UI/badge';
 import { UserData } from '@/app/interface/auth';
 
 interface Address {
@@ -103,8 +103,8 @@ export const AddressesSection: FC<AddressesSectionProps> = ({ userData }) => {
     if (currentAddress) {
       // Edit existing address
       setAddresses(
-        addresses.map(addr => addr.id === currentAddress.id 
-          ? { ...addr, ...address } 
+        addresses.map(addr => addr.id === currentAddress.id
+          ? { ...addr, ...address }
           : address.is_default ? { ...addr, is_default: false } : addr
         )
       );
@@ -120,7 +120,7 @@ export const AddressesSection: FC<AddressesSectionProps> = ({ userData }) => {
         is_default: address.is_default || false,
         type: address.type || 'other'
       } as Address;
-      
+
       // If this is marked as default, update other addresses
       if (newAddress.is_default) {
         setAddresses(
@@ -130,7 +130,7 @@ export const AddressesSection: FC<AddressesSectionProps> = ({ userData }) => {
         setAddresses([...addresses, newAddress]);
       }
     }
-    
+
     setShowAddressForm(false);
     setCurrentAddress(null);
   };
@@ -199,25 +199,25 @@ export const AddressesSection: FC<AddressesSectionProps> = ({ userData }) => {
               </CardContent>
               <CardFooter className="pt-2 flex justify-between">
                 {!address.is_default && (
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     onClick={() => handleSetDefault(address.id)}
                   >
                     Сделать основным
                   </Button>
                 )}
                 <div className="flex gap-2 ml-auto">
-                  <Button 
-                    variant="outline" 
-                    size="icon" 
+                  <Button
+                    variant="outline"
+                    size="icon"
                     onClick={() => handleEditAddress(address)}
                   >
                     <Pencil className="h-4 w-4" />
                   </Button>
-                  <Button 
-                    variant="outline" 
-                    size="icon" 
+                  <Button
+                    variant="outline"
+                    size="icon"
                     className="text-red-700 hover:bg-red-50"
                     onClick={() => handleDeleteAddress(address.id)}
                   >
@@ -241,7 +241,7 @@ export const AddressesSection: FC<AddressesSectionProps> = ({ userData }) => {
                 Заполните информацию о вашем адресе
               </DialogDescription>
             </DialogHeader>
-            <AddressForm 
+            <AddressForm
               address={currentAddress}
               onSave={saveAddress}
               onCancel={() => setShowAddressForm(false)}
@@ -260,14 +260,14 @@ export const AddressesSection: FC<AddressesSectionProps> = ({ userData }) => {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={() => setShowDeleteDialog(false)}
             >
               Отменить
             </Button>
-            <Button 
-              variant="destructive" 
+            <Button
+              variant="destructive"
               onClick={confirmDeleteAddress}
             >
               Удалить

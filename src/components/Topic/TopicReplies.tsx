@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/UI/avatar';
 import { Reply, Media } from '@/app/interface/topic';
 import { getMediaUrl } from '@/lib/utils';
 import { UserData } from '@/app/interface/auth';

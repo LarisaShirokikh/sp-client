@@ -4,7 +4,7 @@ import { HolidayTheme } from '@/app/interface/holiday';
 import { useRef, useState, useEffect } from 'react';
 import { useClickOutside } from '@/app/hooks/useClickOutside';
 import { useAuth } from '@/app/hooks/useAuth';
-import { Button } from '../ui/button';
+import { Button } from '../UI/button';
 import { UserData, UserRole } from '@/app/interface/auth';
 
 interface ProfileMenuProps {
@@ -24,9 +24,14 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({ userData, onLogout }) 
     (Array.isArray(userData?.roles) && (
       userData.roles.includes(UserRole.ADMIN) ||
       userData.roles.includes(UserRole.SUPER_ADMIN)
-    )) ||
+    ))
+  userData?.is_superuser === true;
 
-    userData?.is_superuser === true;
+  const isOrg =
+    (Array.isArray(userData?.roles) && (
+      userData.roles.includes(UserRole.ORGANIZER)
+    ))
+
 
 
   const mediaUrl = process.env.NEXT_PUBLIC_MEDIA_URL || "http://localhost:8000";
@@ -82,6 +87,13 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({ userData, onLogout }) 
             <Link href="/admin" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-500">
               <Lock className="h-4 w-4 mr-2" />
               <span>Админка</span>
+            </Link>
+          )}
+
+          {isOrg && (
+            <Link href="/organizer" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-500">
+              <Lock className="h-4 w-4 mr-2" />
+              <span>Организатор</span>
             </Link>
           )}
 

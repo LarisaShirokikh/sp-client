@@ -10,7 +10,7 @@ export default function Unauthorized(): JSX.Element {
     return (
         <ProtectedRoute>
             <div className="min-h-screen bg-gray-100">
-                <AdminHeader />
+                {/* <AdminHeader /> */}
                 <div className="flex">
                     <AdminNav />
                     <main className="flex-1 p-6">

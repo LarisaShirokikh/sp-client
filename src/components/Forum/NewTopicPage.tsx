@@ -2,9 +2,9 @@
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForumContext } from '@/app/providers/ForumProvider';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
-import { Button } from '../ui/button';
+import { Input } from '../UI/input';
+import { Label } from '../UI/label';
+import { Button } from '../UI/button';
 
 export default function NewTopicPage() {
     const router = useRouter();

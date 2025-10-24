@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, User, Phone } from 'lucide-react';
-import { Button } from '../ui/button';
-import Modal from '../ui/modal';
+import { Button } from '../UI/button';
+import Modal from '../UI/modal';
 import { useAuth } from '@/app/hooks/useAuth';
 import { toast } from 'sonner';
 
@@ -24,14 +24,14 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  
+
   // State for registration form
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [regEmail, setRegEmail] = useState('');
   const [regPassword, setRegPassword] = useState('');
   const [showRegPassword, setShowRegPassword] = useState(false);
-  
+
   // UI state
   const [isLoginView, setIsLoginView] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +58,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-    
+
     try {
       await login(email, password);
       onClose();
@@ -74,14 +74,14 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     setIsLoading(true);
     setError(null);
     setRegErrors({}); // сбрасываем старые ошибки
-  
+
     try {
       await register(name, regEmail, phone, regPassword);
       setIsLoading(false);
-    onClose();
+      onClose();
     } catch (err) {
       const message = authError || (err instanceof Error ? err.message : 'Ошибка регистрации');
-  
+
       // Простая логика разметки по ключевым словам
       if (message.includes('email')) {
         setRegErrors({ email: message });
@@ -194,8 +194,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   required
                 />
                 {regErrors.name && (
-  <p className="mt-1 text-sm text-red-500">{regErrors.name}</p>
-)}
+                  <p className="mt-1 text-sm text-red-500">{regErrors.name}</p>
+                )}
               </div>
             </div>
 
@@ -214,8 +214,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   required
                 />
                 {regErrors.email && (
-  <p className="mt-1 text-sm text-red-500">{regErrors.email}</p>
-)}
+                  <p className="mt-1 text-sm text-red-500">{regErrors.email}</p>
+                )}
               </div>
             </div>
 
@@ -234,8 +234,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   required
                 />
                 {regErrors.phone && (
-  <p className="mt-1 text-sm text-red-500">{regErrors.phone}</p>
-)}
+                  <p className="mt-1 text-sm text-red-500">{regErrors.phone}</p>
+                )}
               </div>
             </div>
 

@@ -2,7 +2,7 @@
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import { Award, Star, Calendar, UserCircle, ShieldCheck } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/UI/tooltip';
 import { Medal, UserData } from '@/app/interface/auth';
 import { RolesType } from '@/app/interface/user';
 import { JSX } from 'react';

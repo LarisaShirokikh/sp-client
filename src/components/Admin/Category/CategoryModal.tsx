@@ -1,10 +1,10 @@
 // 
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import Modal from '@/components/ui/modal';
+import { Button } from '@/components/UI/button';
+import { Label } from '@/components/UI/label';
+import { Input } from '@/components/UI/input';
+import { Textarea } from '@/components/UI/textarea';
+import Modal from '@/components/UI/modal';
 import { Category } from '@/app/interface/forum';
 
 interface CategoryModalProps {
@@ -33,12 +33,12 @@ export const CategoryModal: React.FC<CategoryModalProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     const payload =
       mode === 'edit' && initialData?.id !== undefined
         ? { id: initialData.id, ...formData }
         : { ...formData };
-  
+
     onSubmit(payload);
     setFormData({ name: '', description: '' });
   };

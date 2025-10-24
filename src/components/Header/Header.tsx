@@ -15,7 +15,7 @@ import { ProfileMenu } from './ProfileMenu';
 import { MobileMenu } from './MobileMenu';
 import { LoginModal } from '../Auth/LoginModal';
 import { HeaderLogo } from './HeaderLogo';
-import { Button } from '../ui/button';
+import { Button } from '../UI/button';
 import { useLoginModal } from '@/app/providers/LoginModalProvider';
 
 // Types for the header component
@@ -30,11 +30,11 @@ const Header: React.FC<HeaderProps> = ({ initialTheme }) => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [showSearchBox, setShowSearchBox] = useState(false);
-  
+
   // Используем хук аутентификации для получения состояния и функций
   const { isLoggedIn, userData, login, logout, isLoading } = useAuth();
   const { isOpen, open, close } = useLoginModal();
-  
+
   // Handle scroll for header animation
   useEffect(() => {
     const handleScroll = () => {
@@ -76,52 +76,52 @@ const Header: React.FC<HeaderProps> = ({ initialTheme }) => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo with improved animation */}
-            <HeaderLogo  />
-            
+            <HeaderLogo />
+
             {/* Desktop navigation - centered with improved animation */}
-            <NavLinks 
-              activeSection={activeSection} 
-              setActiveSection={setActiveSection} 
+            <NavLinks
+              activeSection={activeSection}
+              setActiveSection={setActiveSection}
             />
 
             {/* Right side - Search and user control elements */}
             <div className="hidden md:flex items-center space-x-2">
               {/* Search */}
               <div className="relative">
-                <button 
+                <button
                   onClick={toggleSearch}
                   className="p-2 rounded-full text-gray-500 hover:text-pink-500 hover:bg-pink-50 transition-all duration-200"
                 >
                   <Search className="h-5 w-5" />
                 </button>
-                
+
                 {/* Dropdown search */}
                 <AnimatePresence>
                   {showSearchBox && (
-                    <SearchBox 
+                    <SearchBox
                       searchQuery={searchQuery}
                       setSearchQuery={setSearchQuery}
                     />
                   )}
                 </AnimatePresence>
               </div>
-              
+
               {isLoading ? (
                 // Показываем индикатор загрузки, пока проверяем авторизацию
                 <div className="w-8 h-8 rounded-full border-2 border-pink-500 border-t-transparent animate-spin"></div>
               ) : isLoggedIn ? (
                 <div className="flex items-center space-x-1">
                   {/* Notifications */}
-                  <NotificationsMenu  />
-                  
+                  <NotificationsMenu />
+
                   {/* Wishlist */}
-                  <WishlistMenu  />
-                  
+                  <WishlistMenu />
+
                   {/* Cart */}
-                  <CartMenu  />
-                  
+                  <CartMenu />
+
                   {/* User menu с передачей данных пользователя */}
-                  <ProfileMenu 
+                  <ProfileMenu
                     userData={userData}
                     onLogout={handleLogout}
                   />
@@ -135,10 +135,10 @@ const Header: React.FC<HeaderProps> = ({ initialTheme }) => {
                 </Button>
               )}
             </div>
-            
+
             {/* Mobile menu button */}
             <div className="md:hidden flex items-center">
-              <button 
+              <button
                 onClick={toggleMenu}
                 className="p-2 rounded-full text-gray-500 hover:text-pink-500 hover:bg-pink-50"
               >
@@ -151,13 +151,13 @@ const Header: React.FC<HeaderProps> = ({ initialTheme }) => {
             </div>
           </div>
         </div>
-        
+
         {/* Mobile menu */}
         <AnimatePresence>
           {isMenuOpen && (
-            <MobileMenu 
-              isLoggedIn={isLoggedIn} 
-              userData={userData} 
+            <MobileMenu
+              isLoggedIn={isLoggedIn}
+              userData={userData}
               activeSection={activeSection}
               setActiveSection={setActiveSection}
               setShowLoginModal={open}
@@ -167,12 +167,12 @@ const Header: React.FC<HeaderProps> = ({ initialTheme }) => {
           )}
         </AnimatePresence>
       </nav>
-      
+
       {/* Login modal */}
       <AnimatePresence>
         {isOpen && (
-          <LoginModal 
-            isOpen={isOpen} 
+          <LoginModal
+            isOpen={isOpen}
             onClose={close}
             onLogin={handleLogin}
           />

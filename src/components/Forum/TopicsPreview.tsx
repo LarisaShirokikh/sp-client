@@ -5,7 +5,7 @@ import useAuth from "@/app/hooks/useAuth";
 import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import { PlusCircle, Sparkles } from "lucide-react";
-import Modal from "../ui/modal";
+import Modal from "../UI/modal";
 import { LoginModal } from "../Auth/LoginModal";
 
 const PopularTopics = () => {
